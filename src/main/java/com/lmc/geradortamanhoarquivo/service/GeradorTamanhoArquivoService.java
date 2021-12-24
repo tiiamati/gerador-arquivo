@@ -1,6 +1,5 @@
 package com.lmc.geradortamanhoarquivo.service;
 
-import com.itextpdf.text.DocumentException;
 import com.lmc.geradortamanhoarquivo.domain.Arquivo;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -30,7 +29,7 @@ public class GeradorTamanhoArquivoService {
 
             return new UrlResource(Paths.get(stringBuilder).toUri());
 
-        } catch (IOException | DocumentException exception) {
+        } catch (IOException exception) {
             System.out.println("Não foi possível criar o arquivo ".concat(arquivo.getNome()));
             return null;
         }
@@ -65,7 +64,7 @@ public class GeradorTamanhoArquivoService {
         return stringBuilder.toString();
     }
 
-    private void criaArquivo(Arquivo arquivo, String stringBuilder) throws IOException, DocumentException {
+    private void criaArquivo(Arquivo arquivo, String stringBuilder) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(stringBuilder);
         String example = "This is an example";
         byte[] bytes = example.getBytes(StandardCharsets.UTF_8);
