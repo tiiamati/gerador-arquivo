@@ -1,6 +1,7 @@
 package com.lmc.geradortamanhoarquivo.controller;
 
 import com.lmc.geradortamanhoarquivo.domain.Arquivo;
+import com.lmc.geradortamanhoarquivo.domain.ArquivoEnum;
 import com.lmc.geradortamanhoarquivo.service.GeradorTamanhoArquivoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -36,7 +37,7 @@ public class GeradorTamanhoArquivoController {
             Arquivo arquivo = Arquivo.builder()
                     .tamanho(tamanho)
                     .nome(nomeArquivo)
-                    .extensao(extensaoArquivo)
+                    .extensao(ArquivoEnum.valueOf(extensaoArquivo.toUpperCase()))
                     .build();
 
             Resource resource = service.criarArquivo(arquivo);

@@ -1,14 +1,17 @@
 package com.lmc.geradortamanhoarquivo.service;
 
+import com.itextpdf.text.DocumentException;
 import com.lmc.geradortamanhoarquivo.domain.Arquivo;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,22 +22,18 @@ public class GeradorTamanhoArquivoService {
     private static final String CAMINHO = "src/main/resources/";
 
     public Resource criarArquivo(Arquivo arquivo) throws MalformedURLException {
-        String stringBuilder = getCaminho(arquivo);
-
         try {
-            File file = new File(stringBuilder);
-            file.createNewFile();
+            String stringBuilder = getCaminho(arquivo);
 
-            RandomAccessFile raf = new RandomAccessFile(file, "rw");
-            raf.setLength(arquivo.getTamanho());
-            raf.close();
+            this.criaArquivo(arquivo, stringBuilder);
+            this.insereTamanhoArquivo(arquivo, stringBuilder);
 
-        } catch (IOException exception) {
+            return new UrlResource(Paths.get(stringBuilder).toUri());
+
+        } catch (IOException | DocumentException exception) {
             System.out.println("Não foi possível criar o arquivo ".concat(arquivo.getNome()));
             return null;
         }
-
-        return new UrlResource(Paths.get(stringBuilder).toUri());
     }
 
     public void deletarArquivo(Arquivo arquivo) {
@@ -61,8 +60,23 @@ public class GeradorTamanhoArquivoService {
         stringBuilder.append(CAMINHO)
                 .append(arquivo.getNome())
                 .append(".")
-                .append(arquivo.getExtensao());
+                .append(arquivo.getExtensao().value);
 
         return stringBuilder.toString();
+    }
+
+    private void criaArquivo(Arquivo arquivo, String stringBuilder) throws IOException, DocumentException {
+        FileOutputStream fileOutputStream = new FileOutputStream(stringBuilder);
+        String example = "This is an example";
+        byte[] bytes = example.getBytes(StandardCharsets.UTF_8);
+
+        fileOutputStream.write(bytes, 0, bytes.length);
+        fileOutputStream.close();
+    }
+
+    private void insereTamanhoArquivo(Arquivo arquivo, String stringBuilder) throws IOException {
+        RandomAccessFile raf = new RandomAccessFile(stringBuilder, "rw");
+        raf.setLength(arquivo.getTamanho());
+        raf.close();
     }
 }

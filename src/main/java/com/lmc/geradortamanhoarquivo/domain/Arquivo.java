@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class Arquivo {
     private String nome;
-    private String extensao;
+    private ArquivoEnum extensao;
     private long tamanho;
 }

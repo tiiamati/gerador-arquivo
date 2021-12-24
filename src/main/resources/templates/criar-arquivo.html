@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.css}" title="compact" type="text/css">
+
+    <title>Gerador de Código</title>
+
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/icon.png}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        Gerador de Código
+    </a>
+</nav>
+
+<div class="container">
+    <hr class="bg-light mb-5 mt-5"/>
+    <form id="form-id" method="POST">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="nome_arquivo">NOME:</label>
+                    <input type="text" class="form-control" name="nome_arquivo" id="nome_arquivo" value="teste">
+                    <small id="nameHelp" class="form-text text-muted">arquivo-teste</small>
+                </div>
+                <div class="form-group">
+                    <label for="extensao_arquivo">EXTENSÃO: </label>
+                    <input type="text" class="form-control" name="extensao_arquivo" id="extensao_arquivo" value="txt">
+                    <small id="siglaHelp" class="form-text text-muted">txt, pdf, png ...</small>
+                </div>
+                <div class="form-group">
+                    <label for="tamanho">TAMANHO EM BYTES: </label>
+                    <input type="number" class="form-control" name="tamanho" id="tamanho" value="1">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-5">
+            <div class="col-3">
+                <button type="submit" class="btn btn-outline-dark">Gerar Arquivo</button>
+            </div>
+        </div>
+    </form>
+    <hr class="bg-light mt-5"/>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
